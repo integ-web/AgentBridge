@@ -1,0 +1,12 @@
+node_modules/
+dist/
+*.tsbuildinfo
+.env
+.env.local
+*.db
+*.sqlite
+*.log
+coverage/
+.vscode/
+.idea/
+*.map

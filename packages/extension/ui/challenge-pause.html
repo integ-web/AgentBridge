@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AgentBridge — Human Verification Required</title>
+  <style>
+    :root {
+      --bg: #111827;
+      --bg-surface: rgba(255, 255, 255, 0.05);
+      --color-text: #f1f5f9;
+      --color-text-secondary: #94a3b8;
+      --color-text-tertiary: #475569;
+      --color-border: rgba(255, 255, 255, 0.08);
+      --color-accent: #00d4aa;
+      --color-warning: #f59e0b;
+      --color-warning-dim: rgba(245, 158, 11, 0.12);
+      --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      --radius-lg: 16px;
+      --radius-md: 8px;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: var(--font-sans);
+      background: var(--bg);
+      color: var(--color-text);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .container {
+      text-align: center;
+      max-width: 400px;
+      padding: 40px;
+    }
+
+    .pause-icon {
+      width: 72px;
+      height: 72px;
+      border-radius: 20px;
+      background: var(--color-warning-dim);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 24px;
+      animation: gentlePulse 3s ease-in-out infinite;
+    }
+
+    @keyframes gentlePulse {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(245, 158, 11, 0.2); }
+      50% { box-shadow: 0 0 0 12px rgba(245, 158, 11, 0); }
+    }
+
+    .pause-icon svg {
+      color: var(--color-warning);
+    }
+
+    h1 {
+      font-size: 20px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .subtitle {
+      font-size: 14px;
+      color: var(--color-text-secondary);
+      line-height: 1.6;
+      margin-bottom: 24px;
+    }
+
+    .challenge-type {
+      display: inline-block;
+      padding: 4px 12px;
+      background: var(--color-warning-dim);
+      color: var(--color-warning);
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 600;
+      margin-bottom: 24px;
+    }
+
+    .info-block {
+      background: var(--bg-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-md);
+      padding: 16px;
+      text-align: left;
+      margin-bottom: 24px;
+      font-size: 13px;
+      color: var(--color-text-secondary);
+      line-height: 1.6;
+    }
+
+    .info-block strong {
+      color: var(--color-text);
+    }
+
+    .actions {
+      display: flex;
+      gap: 8px;
+    }
+
+    .btn {
+      flex: 1;
+      padding: 12px;
+      border: none;
+      border-radius: var(--radius-md);
+      font-family: var(--font-sans);
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 150ms ease;
+    }
+
+    .btn-takeover {
+      background: linear-gradient(135deg, #00d4aa, #0ea5e9);
+      color: #0a0e1a;
+    }
+    .btn-takeover:hover {
+      box-shadow: 0 0 20px rgba(0, 212, 170, 0.3);
+    }
+
+    .btn-stop {
+      background: var(--bg-surface);
+      color: var(--color-text-secondary);
+      border: 1px solid var(--color-border);
+    }
+    .btn-stop:hover {
+      color: #ef4444;
+      border-color: rgba(239, 68, 68, 0.3);
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="pause-icon">
+      <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+        <rect x="8" y="4" width="6" height="24" rx="2" fill="currentColor"/>
+        <rect x="18" y="4" width="6" height="24" rx="2" fill="currentColor"/>
+      </svg>
+    </div>
+
+    <h1>Human Verification Required</h1>
+    <p class="subtitle">The page requires verification that AgentBridge cannot and will not bypass.</p>
+
+    <span class="challenge-type" id="challenge-type">CAPTCHA</span>
+
+    <div class="info-block">
+      <strong>AgentBridge has paused.</strong><br>
+      Complete the verification yourself, then the agent can continue working. AgentBridge will never attempt to solve CAPTCHAs, bypass MFA, or circumvent security checks.
+    </div>
+
+    <div class="actions">
+      <button class="btn btn-stop" id="btn-stop">Stop Task</button>
+      <button class="btn btn-takeover" id="btn-takeover">I'll Handle It</button>
+    </div>
+  </div>
+
+  <script>
+    document.getElementById('btn-takeover')?.addEventListener('click', () => {
+      chrome.runtime.sendMessage({
+        type: 'challenge.human_takeover',
+        payload: { approval_id: new URLSearchParams(location.search).get('id') },
+      });
+      window.close();
+    });
+
+    document.getElementById('btn-stop')?.addEventListener('click', () => {
+      chrome.runtime.sendMessage({
+        type: 'task.stop',
+        payload: { task_id: new URLSearchParams(location.search).get('task_id') },
+      });
+      window.close();
+    });
+  </script>
+</body>
+</html>

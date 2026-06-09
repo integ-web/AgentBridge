@@ -1,0 +1,28 @@
+{
+  "name": "@agentbridge/companion",
+  "version": "0.1.0",
+  "description": "AgentBridge local companion daemon — HTTP/WebSocket API server",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc -b",
+    "dev": "node --loader ts-node/esm src/server.ts",
+    "start": "node dist/server.js",
+    "test": "vitest run",
+    "clean": "rm -rf dist *.tsbuildinfo"
+  },
+  "dependencies": {
+    "@agentbridge/core": "*",
+    "fastify": "^5.0.0",
+    "@fastify/cors": "^10.0.0",
+    "@fastify/websocket": "^11.0.0",
+    "better-sqlite3": "^11.0.0",
+    "ws": "^8.18.0"
+  },
+  "devDependencies": {
+    "@types/better-sqlite3": "^7.6.0",
+    "@types/ws": "^8.5.0",
+    "vitest": "^2.0.0"
+  },
+  "license": "MIT"
+}

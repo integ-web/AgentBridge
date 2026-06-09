@@ -1,0 +1,15 @@
+{
+  "name": "@agentbridge/extension",
+  "version": "0.1.0",
+  "description": "AgentBridge Chrome browser extension — side panel, content scripts, snapshot engine",
+  "private": true,
+  "scripts": {
+    "build": "node build.js",
+    "dev": "node build.js --watch",
+    "clean": "rm -rf dist"
+  },
+  "devDependencies": {
+    "esbuild": "^0.23.0"
+  },
+  "license": "MIT"
+}

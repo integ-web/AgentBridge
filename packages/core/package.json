@@ -1,0 +1,17 @@
+{
+  "name": "@agentbridge/core",
+  "version": "0.1.0",
+  "description": "AgentBridge core library — types, policy engine, evidence ledger, restriction compliance",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc -b",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "clean": "rm -rf dist *.tsbuildinfo"
+  },
+  "devDependencies": {
+    "vitest": "^2.0.0"
+  },
+  "license": "MIT"
+}

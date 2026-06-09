@@ -8,21 +8,25 @@
     "packages/companion",
     "packages/extension",
     "packages/sdk",
-    "packages/cli"
+    "packages/cli",
+    "packages/web"
   ],
   "scripts": {
-    "build": "npm run build --workspaces --if-present",
+    "build": "tsc -b packages/core packages/companion packages/sdk packages/cli",
     "test": "npm run test --workspaces --if-present",
     "lint": "npm run lint --workspaces --if-present",
     "clean": "npm run clean --workspaces --if-present",
-    "dev:companion": "npm run dev -w @agentbridge/companion",
-    "dev:extension": "npm run dev -w @agentbridge/extension"
+    "dev:companion": "node --watch --loader ts-node/esm packages/companion/src/server.ts",
+    "dev:extension": "npm run dev -w @agentbridge/extension",
+    "dev:web": "npm run dev --workspace=@agentbridge/web",
+    "deploy:web": "npm run build --workspace=@agentbridge/web && gh-pages -d packages/web/dist"
   },
   "devDependencies": {
-    "typescript": "^5.5.0",
-    "vitest": "^2.0.0",
     "eslint": "^9.0.0",
-    "prettier": "^3.3.0"
+    "gh-pages": "^6.3.0",
+    "prettier": "^3.3.0",
+    "typescript": "^5.5.0",
+    "vitest": "^2.0.0"
   },
   "engines": {
     "node": ">=20.0.0"

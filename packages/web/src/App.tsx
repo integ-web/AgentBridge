@@ -12,7 +12,7 @@ function App() {
         <div className="nav-links">
           <a href="#features">Features</a>
           <a href="#demo">Demo</a>
-          <a href="https://github.com/agentbridge/agentbridge" target="_blank" rel="noreferrer" className="btn btn-secondary">GitHub</a>
+          <a href="https://github.com/integ-web/AgentBridge" target="_blank" rel="noreferrer" className="btn btn-secondary">GitHub</a>
         </div>
       </nav>
 

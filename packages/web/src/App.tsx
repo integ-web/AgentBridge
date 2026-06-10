@@ -1,5 +1,6 @@
 import { InteractiveDemo } from './components/InteractiveDemo';
 import { BentoGrid } from './components/BentoGrid';
+import { InstallationGuide } from './components/InstallationGuide';
 
 function App() {
   return (
@@ -12,6 +13,7 @@ function App() {
         <div className="nav-links">
           <a href="#features">Features</a>
           <a href="#demo">Demo</a>
+          <a href="#guide">Guide</a>
           <a href="https://github.com/integ-web/AgentBridge" target="_blank" rel="noreferrer" className="btn btn-secondary">GitHub</a>
         </div>
       </nav>
@@ -43,6 +45,14 @@ function App() {
             <p>Watch an agent try to complete a task, and see how AgentBridge keeps you in control.</p>
           </div>
           <InteractiveDemo />
+        </section>
+
+        <section id="guide" className="guide-section">
+          <div className="section-header">
+            <h2>Quick Start Guide</h2>
+            <p>Everything you need to deploy secure AI agents locally.</p>
+          </div>
+          <InstallationGuide />
         </section>
 
         <section id="features" className="features-section">
